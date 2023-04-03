@@ -1,9 +1,5 @@
 ﻿namespace TelegramBots.Shared.UpdateHandlerAttributes;
 
-using System;
-
-using Telegram.Bot.Types.Enums;
-
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = false)]
 public sealed class AllowedMessageTypesAttribute : UpdateHandlerAttribute
 {

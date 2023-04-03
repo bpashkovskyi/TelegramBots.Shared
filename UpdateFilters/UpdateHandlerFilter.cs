@@ -1,11 +1,5 @@
 ﻿namespace TelegramBots.Shared.UpdateFilters;
 
-using System.Threading.Tasks;
-
-using Telegram.Bot.Types;
-
-using UpdateHandlerAttributes;
-
 public abstract class UpdateHandlerFilter<T>
 where T : UpdateHandlerAttribute
 {

@@ -1,18 +1,10 @@
-﻿namespace TelegramBots.Shared;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 using Rollbar;
 
-using Telegram.Bot.Types;
+using TelegramBots.Shared.UpdateFilters;
 
-using UpdateFilters;
-using UpdateHandlerAttributes;
+namespace TelegramBots.Shared;
 
 public sealed class UpdatesBus : IUpdatesBus
 {

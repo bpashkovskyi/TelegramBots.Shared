@@ -1,14 +1,8 @@
-﻿namespace TelegramBots.Shared.Controllers;
-
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 using Rollbar;
 
-using Telegram.Bot.Types;
+namespace TelegramBots.Shared.Controllers;
 
 [ApiController]
 [Route("")]

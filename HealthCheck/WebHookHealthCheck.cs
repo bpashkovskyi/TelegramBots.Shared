@@ -1,15 +1,10 @@
-﻿namespace TelegramBots.Shared.HealthCheck;
-
-using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Data.Common;
 
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 using Newtonsoft.Json;
+
+namespace TelegramBots.Shared.HealthCheck;
 
 public class WebHookHealthCheck : IHealthCheck
 {
@@ -33,7 +28,7 @@ public class WebHookHealthCheck : IHealthCheck
 
             var getWebhookInfo = JsonConvert.DeserializeObject<GetWebhookInfo>(responseJson);
 
-            if (getWebhookInfo == null || getWebhookInfo.Result == null)
+            if (getWebhookInfo?.Result == null)
             {
                 return HealthCheckResult.Unhealthy(description: "Cannot get WebHook info");
             }

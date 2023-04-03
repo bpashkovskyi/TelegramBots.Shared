@@ -1,13 +1,5 @@
 ﻿namespace TelegramBots.Shared.UpdateFilters;
 
-using System.Threading.Tasks;
-
-using Telegram.Bot;
-using Telegram.Bot.Types;
-using Telegram.Bot.Types.Enums;
-
-using UpdateHandlerAttributes;
-
 public class SenderMustNotBeAdminFilter : UpdateHandlerFilter<SenderMustNotBeAdminAttribute>
 {
     private readonly ITelegramBotClient _telegramBotClient;

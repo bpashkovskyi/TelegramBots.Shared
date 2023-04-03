@@ -1,12 +1,6 @@
-﻿namespace TelegramBots.Shared;
+﻿using Rollbar;
 
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-using Rollbar;
-
-using Telegram.Bot;
-using Telegram.Bot.Types;
+namespace TelegramBots.Shared;
 
 public abstract class UpdateHandler
 {
