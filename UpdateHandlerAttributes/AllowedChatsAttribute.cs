@@ -7,7 +7,7 @@ public sealed class AllowedChatsAttribute : UpdateHandlerAttribute
 {
     public AllowedChatsAttribute(params long[] chatIds)
     {
-        this.ChatIds = chatIds;
+        ChatIds = chatIds;
     }
 
     public long[] ChatIds { get; }

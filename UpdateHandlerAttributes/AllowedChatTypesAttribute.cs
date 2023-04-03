@@ -9,7 +9,7 @@ public sealed class AllowedChatTypesAttribute : UpdateHandlerAttribute
 {
     public AllowedChatTypesAttribute(params ChatType[] chatTypes)
     {
-        this.ChatTypes = chatTypes;
+        ChatTypes = chatTypes;
     }
 
     public ChatType[] ChatTypes { get; }

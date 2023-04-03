@@ -8,14 +8,14 @@
 
         private Result(T value)
         {
-            this.Value = value;
+            Value = value;
         }
 
         public T? Value { get; }
 
-        public bool Success => this.Value is not null;
+        public bool Success => Value is not null;
 
-        public bool Failed => !this.Success;
+        public bool Failed => !Success;
 
         public static Result<T> Ok(T value)
         {

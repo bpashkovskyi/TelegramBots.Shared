@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 using Telegram.Bot.Types;
 
-using TelegramBots.Shared.UpdateHandlerAttributes;
+using UpdateHandlerAttributes;
 
 public abstract class UpdateHandlerFilter<T>
 where T : UpdateHandlerAttribute
@@ -27,14 +27,14 @@ where T : UpdateHandlerAttribute
     {
         return update.Type switch
         {
-            Telegram.Bot.Types.Enums.UpdateType.Message => update.Message?.Chat,
-            Telegram.Bot.Types.Enums.UpdateType.CallbackQuery => update.CallbackQuery?.Message?.Chat,
-            Telegram.Bot.Types.Enums.UpdateType.EditedMessage => update.EditedMessage?.Chat,
-            Telegram.Bot.Types.Enums.UpdateType.ChannelPost => update.ChannelPost?.Chat,
-            Telegram.Bot.Types.Enums.UpdateType.EditedChannelPost => update.EditedChannelPost?.Chat,
-            Telegram.Bot.Types.Enums.UpdateType.MyChatMember => update.MyChatMember?.Chat,
-            Telegram.Bot.Types.Enums.UpdateType.ChatMember => update.ChatMember?.Chat,
-            Telegram.Bot.Types.Enums.UpdateType.ChatJoinRequest => update.ChatJoinRequest?.Chat,
+            UpdateType.Message => update.Message?.Chat,
+            UpdateType.CallbackQuery => update.CallbackQuery?.Message?.Chat,
+            UpdateType.EditedMessage => update.EditedMessage?.Chat,
+            UpdateType.ChannelPost => update.ChannelPost?.Chat,
+            UpdateType.EditedChannelPost => update.EditedChannelPost?.Chat,
+            UpdateType.MyChatMember => update.MyChatMember?.Chat,
+            UpdateType.ChatMember => update.ChatMember?.Chat,
+            UpdateType.ChatJoinRequest => update.ChatJoinRequest?.Chat,
             _ => null
         };
     }

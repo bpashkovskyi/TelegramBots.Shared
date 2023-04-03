@@ -1,9 +1,5 @@
 ﻿namespace TelegramBots.Shared.UpdateFilters;
 
-using Telegram.Bot.Types;
-
-using TelegramBots.Shared.UpdateHandlerAttributes;
-
 public class IgnoreForwardedMessagesFilter : UpdateHandlerFilter<IgnoreForwardedMessagesAttribute>
 {
     public override bool Matches(IgnoreForwardedMessagesAttribute updateHandlerAttribute, Update update)

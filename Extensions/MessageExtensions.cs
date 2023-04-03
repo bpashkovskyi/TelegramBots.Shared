@@ -1,13 +1,9 @@
-﻿namespace TelegramBots.Shared.Extensions;
-
-using System;
+﻿using System;
 using System.Globalization;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-using Telegram.Bot.Types;
-using Telegram.Bot.Types.Enums;
+namespace TelegramBots.Shared.Extensions;
 
 public static class MessageExtensions
 {

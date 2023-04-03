@@ -1,10 +1,6 @@
-﻿namespace TelegramBots.Shared.UpdateFilters;
+﻿using System.Text.RegularExpressions;
 
-using System.Text.RegularExpressions;
-
-using Telegram.Bot.Types;
-
-using TelegramBots.Shared.UpdateHandlerAttributes;
+namespace TelegramBots.Shared.UpdateFilters;
 
 public sealed class AllowedUpdateTypeFilter : UpdateHandlerFilter<AllowedUpdateTypeAttribute>
 {

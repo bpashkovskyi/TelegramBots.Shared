@@ -12,8 +12,8 @@ public abstract class UpdateHandler
 {
     protected UpdateHandler(IRollbar rollbar, ITelegramBotClient telegramBotClient)
     {
-        this.Rollbar = rollbar;
-        this.TelegramBotClient = telegramBotClient;
+        Rollbar = rollbar;
+        TelegramBotClient = telegramBotClient;
     }
 
     public Dictionary<string, string> Arguments { get; } = new();

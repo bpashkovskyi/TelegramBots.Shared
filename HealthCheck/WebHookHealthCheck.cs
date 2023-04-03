@@ -13,11 +13,11 @@ using Newtonsoft.Json;
 
 public class WebHookHealthCheck : IHealthCheck
 {
-    private readonly string apiKey;
+    private readonly string _apiKey;
 
     public WebHookHealthCheck(string apiKey)
     {
-        this.apiKey = apiKey;
+        this._apiKey = apiKey;
     }
 
     public async Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
@@ -26,7 +26,7 @@ public class WebHookHealthCheck : IHealthCheck
         {
             using var httpClient = new HttpClient();
 
-            var uri = new Uri($"https://api.telegram.org/bot{this.apiKey}/getWebhookInfo");
+            var uri = new Uri($"https://api.telegram.org/bot{this._apiKey}/getWebhookInfo");
 
             var httpResponseMessage = await httpClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
             var responseJson = await httpResponseMessage.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);

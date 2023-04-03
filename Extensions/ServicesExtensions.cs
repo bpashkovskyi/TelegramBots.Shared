@@ -1,8 +1,5 @@
-﻿namespace TelegramBots.Shared.Extensions;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
 using Microsoft.Extensions.Configuration;
@@ -17,6 +14,8 @@ using TelegramBots.Shared.HealthCheck;
 using TelegramBots.Shared.UpdateFilters;
 
 using UpdateType = Telegram.Bot.Types.Enums.UpdateType;
+
+namespace TelegramBots.Shared.Extensions;
 
 public static class ServicesExtensions
 {

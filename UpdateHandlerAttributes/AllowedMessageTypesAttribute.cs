@@ -9,7 +9,7 @@ public sealed class AllowedMessageTypesAttribute : UpdateHandlerAttribute
 {
     public AllowedMessageTypesAttribute(params MessageType[] messageTypes)
     {
-        this.MessageTypes = messageTypes;
+        MessageTypes = messageTypes;
     }
 
     public MessageType[] MessageTypes { get; }

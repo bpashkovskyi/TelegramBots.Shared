@@ -1,6 +1,6 @@
-﻿namespace TelegramBots.Shared.HealthCheck;
+﻿using Newtonsoft.Json;
 
-using Newtonsoft.Json;
+namespace TelegramBots.Shared.HealthCheck;
 
 internal class GetWebhookInfo
 {

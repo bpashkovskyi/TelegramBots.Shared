@@ -9,8 +9,8 @@ public sealed class AllowedUpdateTypeAttribute : UpdateHandlerAttribute
 {
     public AllowedUpdateTypeAttribute(UpdateType updateType, string? pattern = null)
     {
-        this.UpdateType = updateType;
-        this.Pattern = pattern;
+        UpdateType = updateType;
+        Pattern = pattern;
     }
 
     public UpdateType UpdateType { get; }

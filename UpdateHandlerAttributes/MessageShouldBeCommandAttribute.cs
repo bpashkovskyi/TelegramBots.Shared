@@ -7,7 +7,7 @@ public sealed class MessageShouldBeCommandAttribute : UpdateHandlerAttribute
 {
     public MessageShouldBeCommandAttribute(string commandName)
     {
-        this.CommandName = commandName;
+        CommandName = commandName;
     }
 
     public MessageShouldBeCommandAttribute()

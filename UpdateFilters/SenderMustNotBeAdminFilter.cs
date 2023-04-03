@@ -10,11 +10,11 @@ using TelegramBots.Shared.UpdateHandlerAttributes;
 
 public class SenderMustNotBeAdminFilter : UpdateHandlerFilter<SenderMustNotBeAdminAttribute>
 {
-    private readonly ITelegramBotClient telegramBotClient;
+    private readonly ITelegramBotClient _telegramBotClient;
 
     public SenderMustNotBeAdminFilter(ITelegramBotClient telegramBotClient)
     {
-        this.telegramBotClient = telegramBotClient;
+        this._telegramBotClient = telegramBotClient;
     }
 
     public override async Task<bool> MatchesAsync(SenderMustNotBeAdminAttribute updateHandlerAttribute, Update update)
@@ -25,7 +25,7 @@ public class SenderMustNotBeAdminFilter : UpdateHandlerFilter<SenderMustNotBeAdm
             return false;
         }
 
-        var memberInfo = await this.telegramBotClient.GetChatMemberAsync(message.Chat.Id, message.From!.Id).ConfigureAwait(false);
+        var memberInfo = await this._telegramBotClient.GetChatMemberAsync(message.Chat.Id, message.From!.Id).ConfigureAwait(false);
         if (memberInfo.Status != ChatMemberStatus.Administrator && memberInfo.Status != ChatMemberStatus.Creator && message.From.Username != "GroupAnonymousBot" && message.From.Username != "Telegram")
         {
             return true;

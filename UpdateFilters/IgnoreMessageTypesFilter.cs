@@ -1,11 +1,5 @@
 ﻿namespace TelegramBots.Shared.UpdateFilters;
 
-using System.Linq;
-
-using Telegram.Bot.Types;
-
-using TelegramBots.Shared.UpdateHandlerAttributes;
-
 public class IgnoreMessageTypesFilter : UpdateHandlerFilter<IgnoreMessageTypesAttribute>
 {
     public override bool Matches(IgnoreMessageTypesAttribute updateHandlerAttribute, Update update)

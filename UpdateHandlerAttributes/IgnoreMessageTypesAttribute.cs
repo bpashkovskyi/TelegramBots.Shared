@@ -9,7 +9,7 @@ public sealed class IgnoreMessageTypesAttribute : UpdateHandlerAttribute
 {
     public IgnoreMessageTypesAttribute(params MessageType[] messageTypes)
     {
-        this.MessageTypes = messageTypes;
+        MessageTypes = messageTypes;
     }
 
     public MessageType[] MessageTypes { get; }
