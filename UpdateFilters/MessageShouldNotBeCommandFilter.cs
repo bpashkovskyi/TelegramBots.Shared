@@ -1,6 +1,4 @@
-﻿using TelegramBots.Shared.Extensions;
-
-namespace TelegramBots.Shared.UpdateFilters;
+﻿namespace TelegramBots.Shared.UpdateFilters;
 
 public class MessageShouldNotBeCommandFilter : UpdateHandlerFilter<MessageShouldNotBeCommandAttribute>
 {

@@ -1,9 +1,4 @@
-﻿using System.Threading.Tasks;
-
-using Telegram.Bot;
-using Telegram.Bot.Types.Enums;
-
-namespace TelegramBots.Shared.UpdateFilters;
+﻿namespace TelegramBots.Shared.UpdateFilters;
 
 public class SenderMustBeAdminFilter : UpdateHandlerFilter<SenderMustBeAdminAttribute>
 {
@@ -11,7 +6,7 @@ public class SenderMustBeAdminFilter : UpdateHandlerFilter<SenderMustBeAdminAttr
 
     public SenderMustBeAdminFilter(ITelegramBotClient telegramBotClient)
     {
-        this._telegramBotClient = telegramBotClient;
+        _telegramBotClient = telegramBotClient;
     }
 
     public override async Task<bool> MatchesAsync(SenderMustBeAdminAttribute updateHandlerAttribute, Update update)
@@ -22,7 +17,7 @@ public class SenderMustBeAdminFilter : UpdateHandlerFilter<SenderMustBeAdminAttr
             return false;
         }
 
-        var memberInfo = await this._telegramBotClient.GetChatMemberAsync(message.Chat.Id, message.From!.Id).ConfigureAwait(false);
+        var memberInfo = await _telegramBotClient.GetChatMemberAsync(message.Chat.Id, message.From!.Id).ConfigureAwait(false);
         return memberInfo.Status is ChatMemberStatus.Administrator or ChatMemberStatus.Creator || message.From.Username is "GroupAnonymousBot" or "Telegram";
     }
 }

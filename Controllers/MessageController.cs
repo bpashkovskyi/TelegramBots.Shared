@@ -21,8 +21,8 @@ public class MessageController : Controller
         IUpdatesBus updatesBus,
         IRollbar rollbar)
     {
-        this._updatesBus = updatesBus;
-        this._rollbar = rollbar;
+        _updatesBus = updatesBus;
+        _rollbar = rollbar;
     }
 
     [HttpPost]
@@ -30,16 +30,16 @@ public class MessageController : Controller
     {
         try
         {
-            await this._updatesBus.SendAsync(update).ConfigureAwait(false);
+            await _updatesBus.SendAsync(update).ConfigureAwait(false);
         }
         catch (Exception exception)
         {
-            this._rollbar.Critical(
+            _rollbar.Critical(
                 exception,
                 new Dictionary<string, object?> { { "update", update } });
         }
 
-        return this.Ok();
+        return Ok();
     }
 
     [HttpGet]

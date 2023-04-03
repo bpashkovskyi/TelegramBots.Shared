@@ -4,7 +4,7 @@ public class AllowedChatTypesFilter : UpdateHandlerFilter<AllowedChatTypesAttrib
 {
     public override bool Matches(AllowedChatTypesAttribute updateHandlerAttribute, Update update)
     {
-        var chat = this.GetChat(update);
+        var chat = GetChat(update);
         return chat != null && updateHandlerAttribute.ChatTypes.Contains(chat.Type);
     }
 }

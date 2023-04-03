@@ -4,7 +4,7 @@ public class IgnoreForwardedMessagesFilter : UpdateHandlerFilter<IgnoreForwarded
 {
     public override bool Matches(IgnoreForwardedMessagesAttribute updateHandlerAttribute, Update update)
     {
-        return update.Type == Telegram.Bot.Types.Enums.UpdateType.Message
+        return update.Type == UpdateType.Message
             && update.Message?.ForwardFromMessageId == null;
     }
 }

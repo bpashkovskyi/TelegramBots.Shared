@@ -1,6 +1,4 @@
-﻿using TelegramBots.Shared.Extensions;
-
-namespace TelegramBots.Shared.UpdateFilters;
+﻿namespace TelegramBots.Shared.UpdateFilters;
 
 public class MessageShouldBeCommandFilter : UpdateHandlerFilter<MessageShouldBeCommandAttribute>
 {
@@ -8,9 +6,9 @@ public class MessageShouldBeCommandFilter : UpdateHandlerFilter<MessageShouldBeC
     {
         if (updateHandlerAttribute.CommandName == null)
         {
-            return update.Type == Telegram.Bot.Types.Enums.UpdateType.Message && update.Message?.IsCommand() == true;
+            return update.Type == UpdateType.Message && update.Message?.IsCommand() == true;
         }
 
-        return update.Type == Telegram.Bot.Types.Enums.UpdateType.Message && update.Message?.IsCommand(updateHandlerAttribute.CommandName) == true;
+        return update.Type == UpdateType.Message && update.Message?.IsCommand(updateHandlerAttribute.CommandName) == true;
     }
 }

@@ -4,8 +4,7 @@ public sealed class MessageTypesFilter : UpdateHandlerFilter<AllowedMessageTypes
 {
     public override bool Matches(AllowedMessageTypesAttribute updateHandlerAttribute, Update update)
     {
-        return update.Type == Telegram.Bot.Types.Enums.UpdateType.Message
-            && update.Message?.Type != null
-            && updateHandlerAttribute.MessageTypes.Contains(update.Message.Type);
+        return update is { Type: UpdateType.Message, Message.Type: { } } 
+               && updateHandlerAttribute.MessageTypes.Contains(update.Message.Type);
     }
 }

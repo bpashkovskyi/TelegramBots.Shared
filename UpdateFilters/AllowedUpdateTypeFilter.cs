@@ -10,7 +10,7 @@ public sealed class AllowedUpdateTypeFilter : UpdateHandlerFilter<AllowedUpdateT
         {
             var regex = new Regex(updateHandlerAttribute.Pattern, RegexOptions.Singleline);
 
-            var data = this.GetData(update);
+            var data = GetData(update);
             return update.Type == updateHandlerAttribute.UpdateType && data != null && regex.IsMatch(data);
         }
 
@@ -19,7 +19,7 @@ public sealed class AllowedUpdateTypeFilter : UpdateHandlerFilter<AllowedUpdateT
 
     public override void SetHandlerArguments(AllowedUpdateTypeAttribute updateHandlerAttribute, UpdateHandler updateHandler, Update update)
     {
-        var data = this.GetData(update);
+        var data = GetData(update);
         if (data == null || updateHandlerAttribute.Pattern == null)
         {
             return;
@@ -41,9 +41,9 @@ public sealed class AllowedUpdateTypeFilter : UpdateHandlerFilter<AllowedUpdateT
     {
         return update.Type switch
         {
-            Telegram.Bot.Types.Enums.UpdateType.Message => update.Message?.Text,
-            Telegram.Bot.Types.Enums.UpdateType.CallbackQuery => update.CallbackQuery?.Data,
-            Telegram.Bot.Types.Enums.UpdateType.ChannelPost => update.ChannelPost?.Text,
+            UpdateType.Message => update.Message?.Text,
+            UpdateType.CallbackQuery => update.CallbackQuery?.Data,
+            UpdateType.ChannelPost => update.ChannelPost?.Text,
             _ => null
         };
     }

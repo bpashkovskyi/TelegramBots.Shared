@@ -4,8 +4,7 @@ public class IgnoreMessageTypesFilter : UpdateHandlerFilter<IgnoreMessageTypesAt
 {
     public override bool Matches(IgnoreMessageTypesAttribute updateHandlerAttribute, Update update)
     {
-        return update.Type == Telegram.Bot.Types.Enums.UpdateType.Message
-            && update.Message?.Type != null
-            && !updateHandlerAttribute.MessageTypes.Contains(update.Message.Type);
+        return update is { Type: UpdateType.Message, Message.Type: { } } 
+               && !updateHandlerAttribute.MessageTypes.Contains(update.Message.Type);
     }
 }

@@ -11,8 +11,8 @@ using Rollbar;
 
 using Telegram.Bot.Types;
 
-using TelegramBots.Shared.UpdateFilters;
-using TelegramBots.Shared.UpdateHandlerAttributes;
+using UpdateFilters;
+using UpdateHandlerAttributes;
 
 public sealed class UpdatesBus : IUpdatesBus
 {
@@ -21,39 +21,39 @@ public sealed class UpdatesBus : IUpdatesBus
 
     public UpdatesBus(IRollbar rollbar, IServiceProvider serviceProvider)
     {
-        this._rollbar = rollbar;
-        this._serviceProvider = serviceProvider;
+        _rollbar = rollbar;
+        _serviceProvider = serviceProvider;
     }
 
     public async Task SendAsync(Update update)
     {
-        this._rollbar.Debug("Starting finding handlers");
+        _rollbar.Debug("Starting finding handlers");
 
-        var updateHandlers = await this.FilterHandlersAsync(update).ConfigureAwait(false);
+        var updateHandlers = await FilterHandlersAsync(update).ConfigureAwait(false);
 
         if (!updateHandlers.Any())
         {
-            this._rollbar.Debug("No handlers found");
+            _rollbar.Debug("No handlers found");
             return;
         }
 
         foreach (var updateHandler in updateHandlers.OrderBy(updateHandler => updateHandler.Order))
         {
-            this._rollbar.Debug($"Found handler {updateHandler}");
+            _rollbar.Debug($"Found handler {updateHandler}");
 
-            this.SetHandlerArguments(updateHandler, update);
+            SetHandlerArguments(updateHandler, update);
             await updateHandler.HandleAsync(update).ConfigureAwait(false);
         }
     }
 
     private async Task<List<UpdateHandler>> FilterHandlersAsync(Update update)
     {
-        var updateHandlers = this._serviceProvider.GetServices<UpdateHandler>().ToList();
+        var updateHandlers = _serviceProvider.GetServices<UpdateHandler>().ToList();
         var filteredUpdateHandlers = new List<UpdateHandler>();
 
         foreach (var updateHandler in updateHandlers)
         {
-            if (await this.MatchFilters(updateHandler, update).ConfigureAwait(false))
+            if (await MatchFilters(updateHandler, update).ConfigureAwait(false))
             {
                 filteredUpdateHandlers.Add(updateHandler);
             }
@@ -71,7 +71,7 @@ public sealed class UpdatesBus : IUpdatesBus
         {
             var updateHandlerFilterType = typeof(UpdateHandlerFilter<>).MakeGenericType(updateHandlerAttribute.GetType());
 
-            var updateHandlerFilter = (dynamic)this._serviceProvider.GetRequiredService(updateHandlerFilterType);
+            var updateHandlerFilter = (dynamic)_serviceProvider.GetRequiredService(updateHandlerFilterType);
 
             var updateFilterMatch = (bool)updateHandlerFilter.Matches((dynamic)updateHandlerAttribute, update) || await ((Task<bool>)updateHandlerFilter.MatchesAsync((dynamic)updateHandlerAttribute, update)).ConfigureAwait(false);
 
@@ -94,7 +94,7 @@ public sealed class UpdatesBus : IUpdatesBus
         {
             var updateHandlerFilterType = typeof(UpdateHandlerFilter<>).MakeGenericType(updateHandlerAttribute.GetType());
 
-            var updateHandlerFilter = (dynamic)this._serviceProvider.GetRequiredService(updateHandlerFilterType);
+            var updateHandlerFilter = (dynamic)_serviceProvider.GetRequiredService(updateHandlerFilterType);
             updateHandlerFilter.SetHandlerArguments((dynamic)updateHandlerAttribute, updateHandler, update);
         }
     }
