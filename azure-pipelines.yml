@@ -48,11 +48,10 @@ jobs:
 
   - task: PublishPipelineArtifact@1
     displayName: Publish Artifact NuGet Packages
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Build.ArtifactStagingDirectory)/NuGetPackages'
-    artifact: 'NuGetPackages'
-    publishLocation: 'pipeline'
+    
+  - task: PublishPipelineArtifact@1
     inputs:
-      path: $(Build.ArtifactStagingDirectory)
+      targetPath: '$(Build.ArtifactStagingDirectory)/NuGetPackages'
+      artifact: 'NuGetPackages'
+      publishLocation: 'pipeline'
 ...
