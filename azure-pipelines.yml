@@ -77,7 +77,7 @@ stages:
         displayName: 'NuGet Push Packages'
         inputs:
           command: push
-          packagesToPush: '$(System.DefaultWorkingDirectory)/$(ProjectPath)/NuGetPackages/*.nupkg'
+          packagesToPush: '$(Build.ArtifactStagingDirectory)/NuGetPackages/*.nupkg'
           nuGetFeedType: external
           publishFeedCredentials: 'Nuget Org'
 ...
