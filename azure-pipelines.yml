@@ -78,13 +78,13 @@ stages:
         inputs:
           buildType: 'current'
           artifactName: 'NuGet'
-          downloadPath: '$(Build.ArtifactsDirectory)'
+          downloadPath: '$(System.ArtifactsDirectory)'
 
       - task: NuGetCommand@2
         displayName: 'NuGet Push Packages'
         inputs:
           command: push
-          packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+          packagesToPush: '$(System.ArtifactsDirectory)/*.nupkg'
           nuGetFeedType: external
           publishFeedCredentials: 'Nuget Org'
 ...
