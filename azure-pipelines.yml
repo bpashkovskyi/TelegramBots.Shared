@@ -61,7 +61,6 @@ stages:
         inputs:
           targetPath: '$(Build.ArtifactStagingDirectory)'
           artifact: 'NuGet'
-          publishLocation: 'pipeline'
 
   - stage: Publish
     displayName: 'NuGet Push Packages'
@@ -74,18 +73,18 @@ stages:
 
       steps:
 
-      - task: DownloadBuildArtifacts@0
+      - task: DownloadPipelineArtifact@2
         displayName: 'Download Nuget Packages'
         inputs:
           buildType: 'current'
-          artifactName: 'Nuget'
-          downloadPath: '$(Build.ArtifactStagingDirectory)'
+          artifactName: 'NuGet'
+          downloadPath: '$(Build.ArtifactsDirectory)'
 
       - task: NuGetCommand@2
         displayName: 'NuGet Push Packages'
         inputs:
           command: push
-          packagesToPush: '$(Build.ArtifactStagingDirectory)/NuGetPackages/*.nupkg'
+          packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
           nuGetFeedType: external
           publishFeedCredentials: 'Nuget Org'
 ...
