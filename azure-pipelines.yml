@@ -5,53 +5,86 @@ trigger:
     include:
     - main
 
-jobs:
-- job: build
-  displayName: Build, Run Tests and Publish Artifacts Job
-  pool:
-    vmImage: windows-latest
+variables:  
+  - name: ProjectPath
+    value: 'TelegramBots.Shared'
 
-  steps:
+stages:
+  - stage: Build
+    displayName: 'Build, Run Tests and Publish Artifacts'
 
-  - checkout: self
-    clean: true
+    jobs:
+    - job: build
+      displayName: Build, Run Tests and Publish Artifacts Job
+      pool:
+        vmImage: windows-latest
 
-  - task: NuGetToolInstaller@0
-    displayName: Use NuGet
-    inputs:
-      versionSpec: 6.1.0
+      steps:
 
-  - task: DotNetCoreCLI@2
-    displayName: Restore NuGet Packages
-    inputs:
-      command: restore
-      projects: '**/*.csproj'
+      - checkout: self
+        clean: true
 
-  - task: DotNetCoreCLI@2
-    displayName: Build Projects
-    inputs:
-      projects: '**/*.sln'
+      - task: NuGetToolInstaller@0
+        displayName: Use NuGet
+        inputs:
+          versionSpec: 6.1.0
 
-  - task: DotNetCoreCLI@2
-    displayName: Run Tests
-    inputs:
-      command: test
-      projects: '**/$(ProjectPath).*Test*.csproj'
+      - task: DotNetCoreCLI@2
+        displayName: Restore NuGet Packages
+        inputs:
+          command: restore
+          projects: '**/*.csproj'
 
-  - task: DotNetCoreCLI@2
-    displayName: Publish Nuget Packages
-    inputs:
-      command: 'pack'
-      packagesToPack: '**\*.csproj;!**/*Test*.csproj;!'
-      packDirectory: '$(Build.ArtifactStagingDirectory)/NuGetPackages'
-      versioningScheme: 'byBuildNumber'
+      - task: DotNetCoreCLI@2
+        displayName: Build Projects
+        inputs:
+          projects: '**/*.sln'
 
-  - task: PublishPipelineArtifact@1
-    displayName: Publish Artifact NuGet Packages
-    
-  - task: PublishPipelineArtifact@1
-    inputs:
-      targetPath: '$(Build.ArtifactStagingDirectory)/NuGetPackages'
-      artifact: 'NuGetPackages'
-      publishLocation: 'pipeline'
+      - task: DotNetCoreCLI@2
+        displayName: Run Tests
+        inputs:
+          command: test
+          projects: '**/*Test*.csproj;!'
+
+      - task: DotNetCoreCLI@2
+        displayName: Publish Nuget Packages
+        inputs:
+          command: 'pack'
+          packagesToPack: '**\*.csproj;!**/*Test*.csproj;!'
+          packDirectory: '$(Build.ArtifactStagingDirectory)'
+          versioningScheme: 'byBuildNumber'
+
+      - task: PublishPipelineArtifact@1
+        displayName: Publish Artifact NuGet Packages
+        
+      - task: PublishPipelineArtifact@1
+        inputs:
+          targetPath: '$(Build.ArtifactStagingDirectory)'
+          artifact: 'NuGet'
+
+  - stage: Publish
+    displayName: 'NuGet Push Packages'
+
+    jobs:
+    - job: Publish
+      displayName: 'NuGet Push Packages'
+      pool:
+        vmImage: windows-latest
+
+      steps:
+
+      - task: DownloadPipelineArtifact@2
+        displayName: 'Download Nuget Packages'
+        inputs:
+          buildType: 'current'
+          artifactName: 'NuGet'
+          downloadPath: '$(System.ArtifactsDirectory)'
+
+      - task: NuGetCommand@2
+        displayName: 'NuGet Push Packages'
+        inputs:
+          command: push
+          packagesToPush: '$(System.ArtifactsDirectory)/*.nupkg'
+          nuGetFeedType: external
+          publishFeedCredentials: 'Nuget Org'
 ...
