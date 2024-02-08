@@ -1,4 +1,4 @@
-name: $[format('1.0.{0}', counter('1.0', 0))]
+name: $[format('2.0.{0}', counter('2.0', 0))]
 
 trigger:
   branches:

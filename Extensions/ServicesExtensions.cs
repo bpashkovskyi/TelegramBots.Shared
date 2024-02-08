@@ -42,7 +42,7 @@ public static class ServicesExtensions
         var baseSettingsSection = configuration.GetSection("BaseSettings");
         var baseSettings = baseSettingsSection.Get<BaseSettings>();
 
-        var rollbarInfrastructureConfig = new RollbarInfrastructureConfig(baseSettings.RollbarToken, baseSettings.RollbarEnvironment);
+        var rollbarInfrastructureConfig = new RollbarInfrastructureConfig(baseSettings!.RollbarToken, baseSettings.RollbarEnvironment);
         rollbarInfrastructureConfig.RollbarLoggerConfig.RollbarDeveloperOptions.LogLevel = ErrorLevel.Info;
 
         RollbarInfrastructure.Instance.Init(rollbarInfrastructureConfig);
@@ -74,7 +74,7 @@ public static class ServicesExtensions
             UpdateType.ChatJoinRequest,
         };
 
-        if (baseSettings.Key != null && baseSettings.Url != null)
+        if (baseSettings!.Key != null && baseSettings.Url != null)
         {
             var telegramBotClient = new TelegramBotClient(baseSettings.Key);
             telegramBotClient.SetWebhookAsync(baseSettings.Url, allowedUpdates: allowUpdates).Wait();
@@ -88,7 +88,7 @@ public static class ServicesExtensions
         var baseSettingsSection = configuration.GetSection("BaseSettings");
         var baseSettings = baseSettingsSection.Get<BaseSettings>();
 
-        if (baseSettings.Key != null)
+        if (baseSettings!.Key != null)
         {
            return services.AddHealthChecks()
                 .AddCheck(
